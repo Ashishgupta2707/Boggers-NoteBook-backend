@@ -1,13 +1,14 @@
 import express from 'express';
 import { signupUser, loginUser } from '../controller/user-controller.js'
-// import Login from '../../client/src/components/account/Login.js';
+import { uploadImage } from '../controller/image-controller.js';
+import upload from '../utils/upload.js';
 
 const router = express.Router();
 
 
 router.post('/signup', signupUser);
 router.post('/login', loginUser);
-router.post('/create', uploadFile);
+router.post('/file/upload', upload.single('file') , uploadImage);
 
 
 export default router;
