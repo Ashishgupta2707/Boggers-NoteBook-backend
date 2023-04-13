@@ -9,13 +9,13 @@ const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
 
 
-const storage = new GridFsStorage({
+const Storage = new GridFsStorage({
     url: `mongodb+srv://${username}:${password}@blog-app.btcuew0.mongodb.net/?retryWrites=true&w=majority`,
-    options: { useNewUrlParse: true },
+    options: {useNewUrlParser: true, useUnifiedTopology: true },
     file: (request, file) => {
-        const match = ["image/png", "image/jpg", "image/jpeg"];
+        const match = ["image/png", "image/jpg"];
         
-        if (match.indexOf(file.memeType) === -1) {
+        if (match.indexOf(file.mimeType) === -1) {
             return `${Date.now()}-blog-${file.originalname}`;
         }
 
@@ -27,4 +27,4 @@ const storage = new GridFsStorage({
 
 })
 
-export default multer({ storage });
+export default multer({ storage : Storage });
